@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ip.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @ip.description %>
+</p>
+
+<p>
+  <strong>Identify:</strong>
+  <%= @ip.identify_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @ip.status %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @ip.type %>
+</p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @ip.domain %>
+</p>
+
+<%= link_to 'Edit', edit_ip_path(@ip) %> |
+<%= link_to 'Back', ips_path %>

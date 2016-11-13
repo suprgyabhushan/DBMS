@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use mysql2 as the database for Active Record
+gem 'mysql2', '0.4.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -47,3 +47,9 @@ end
 
 
 gem 'devise', '4.2.0'
+gem 'omniauth', '1.3.1'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-microsoft-office365'
+
+gem 'carrierwave', '0.11.2'
