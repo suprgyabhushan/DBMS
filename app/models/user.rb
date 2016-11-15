@@ -5,8 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:microsoft_office365 , :google, :facebook]
 
-  has_many :stake
-  has_many :ips, through: :stake
+  has_many :stakes
+  has_many :ips, through: :stakes
+  accepts_nested_attributes_for :stakes
   def self.types
     %w(Student Faculty Collaborator)
   end

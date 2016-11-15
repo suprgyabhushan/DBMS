@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-8">
+  <h3>Accepted IP's</h3>
+  <%= @user.email %> <br>
+  <ol class="ips">
+  <% @user.ips.each do |ip| %>
+  <% if ip.status == 2 %>
+      <li id="ip-<%= ip.id %>">
+      <span class="title"><%= ip.title %></span>
+      <span class="timestamp">
+      Posted <%= time_ago_in_words(ip.created_at) %> ago.
+      </span>
+      <ol>
+        <% ip.stakes.each do |stake| %>
+          <span><%= stake.percentage %></span>
+          <span><%= stake.user.email %></span>
+
+        <% end %>
+      </ol>
+      <span><%= link_to "Download IP Asset Document", ip.attachment_url, target: '_blank' %></span>
+    </li>
+  <% end %>
+  <% end %>
+  </ol>
+  </div>
+</div>

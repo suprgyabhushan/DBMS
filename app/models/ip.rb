@@ -1,7 +1,13 @@
 class Ip < ActiveRecord::Base
   belongs_to :domain
-  has_many :users, through: :stake, as: :stakeholders
-  has_many :faculty, through: :ip_comm, as: :ip_committee
+  has_many :stakes
+  has_many :ip_comms
+  has_many :users, through: :stakes, as: :stakeholders
+  has_many :faculties, through: :ip_comms, as: :ip_committee
+  mount_uploader :attachment, AttachmentUploader # Tells rails to use this uploader for this model.
+  accepts_nested_attributes_for :stakes, :reject_if => :all_blank , :allow_destroy =>true
+  accepts_nested_attributes_for :users
+
 
   def accept
     flag = 0

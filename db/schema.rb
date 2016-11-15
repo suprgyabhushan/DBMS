@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113204332) do
+ActiveRecord::Schema.define(version: 20161114114821) do
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace",     limit: 255
+    t.text     "body",          limit: 65535
+    t.string   "resource_id",   limit: 255,   null: false
+    t.string   "resource_type", limit: 255,   null: false
+    t.integer  "author_id",     limit: 4
+    t.string   "author_type",   limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "collaborators", force: :cascade do |t|
     t.string   "company",    limit: 255
@@ -40,10 +55,11 @@ ActiveRecord::Schema.define(version: 20161113204332) do
 
   create_table "ip_comms", force: :cascade do |t|
     t.integer  "vote",       limit: 4
+    t.text     "comment",    limit: 65535
     t.integer  "faculty_id", limit: 4
     t.integer  "ip_id",      limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "ip_comms", ["faculty_id"], name: "index_ip_comms_on_faculty_id", using: :btree
@@ -53,11 +69,12 @@ ActiveRecord::Schema.define(version: 20161113204332) do
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
     t.string   "identify_id", limit: 255
-    t.integer  "status",      limit: 4
-    t.string   "type",        limit: 255
     t.integer  "domain_id",   limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "status",      limit: 4,     default: 0
+    t.string   "role",        limit: 255
+    t.string   "attachment",  limit: 255
   end
 
   add_index "ips", ["domain_id"], name: "index_ips_on_domain_id", using: :btree
@@ -101,8 +118,8 @@ ActiveRecord::Schema.define(version: 20161113204332) do
     t.float    "royalty_credited",       limit: 24
     t.float    "royalty_accumulated",    limit: 24
     t.string   "name",                   limit: 255
-    t.string   "type",                   limit: 255
-    t.integer  "status",                 limit: 4
+    t.integer  "status",                 limit: 4,   default: 0
+    t.string   "role",                   limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
