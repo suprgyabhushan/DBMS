@@ -1,0 +1,18 @@
+<% if current_user.role == "Student"%>
+   Student Dashboard
+<% elsif current_user.role == "Faculty" %>
+   Faculty Dashboard
+<% elsif current_user.role == "Collaborator" %>
+   Collaborator Dashboard
+<% else %>
+   Dashboard
+<% end %>
+
+
+<h1><%= current_user.role %></h1>
+<h1><%= current_user.email %></h1><br>
+<span><%= link_to "Pending IP's", current_user %></span><br>
+<a href="/review">Reviewing IP's</a><br>
+<a href="/accept">Accepted IP's</a><br>
+Total Number of IP's created :
+<span><%= pluralize(current_user.ips.count, "IPs") %></span>
