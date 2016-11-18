@@ -1,0 +1,20 @@
+<script>
+$(document).ready(function(){
+        // $("#student_profile").on(function(){
+        //   console.log())
+        //     if($(this).val() === "Student"){
+        //       $("#hidden_option").show();
+        //     }else {
+        //       $("#hidden_option").hide();
+        //     }
+        // });
+        $('select').on('change', function()
+        {
+            if(this.value === "Student"){
+              $("#hidden_option").show();
+            }else {
+              $("#hidden_option").hide();
+            }
+        });
+    });
+</script>

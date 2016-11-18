@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   root :to => redirect("/login")
   get '/dashboard', to: "dashboard#index"
 
-  resources :users , only: [:show]
+  resources :users , :has_one => :student
 
   devise_scope :user do
     get 'logout' => 'users/sessions#destroy'

@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :stakes
   has_many :ips, through: :stakes
   accepts_nested_attributes_for :stakes
+  has_one :student
+  accepts_nested_attributes_for :student
   def self.types
     %w(Student Faculty Collaborator)
   end
