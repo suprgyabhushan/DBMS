@@ -10,6 +10,11 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :stakes
   has_one :student
   accepts_nested_attributes_for :student
+  has_one :faculty
+  accepts_nested_attributes_for :faculty
+  has_one :collaborator
+  accepts_nested_attributes_for :collaborator
+
   def self.types
     %w(Student Faculty Collaborator)
   end

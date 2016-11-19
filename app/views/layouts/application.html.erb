@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IP</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <!--     Fonts and icons     -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+	<!-- CSS Files -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/material-kit.css" rel="stylesheet"/>
 </head>
-<body>
-
-<%= yield %>
-
+<body class="signup-page">
+  <%= render "shared/nav" %>
+  <%= yield %>
+  <%= render "shared/footer" %>
 </body>
-<%= render 'shared/custom' %>
+<%= render "shared/scripts" %>
 </html>
