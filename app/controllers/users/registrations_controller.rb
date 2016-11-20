@@ -8,6 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # super
     @user = User.new
     @user.build_student
+    @user.build_faculty
+    @user.build_collaborator
   end
 
   # POST /resource
