@@ -8,16 +8,38 @@ class Ip < ActiveRecord::Base
   accepts_nested_attributes_for :stakes, :reject_if => :all_blank , :allow_destroy =>true
   accepts_nested_attributes_for :users
 
+  before_validation :set_status
+  # after_save :set_stakes
+  after_save :set_ip_committee
+
+  def set_ip_committee
+    ip_com = Faculty.where(:ip_committee => true)
+    ip_com.each do |com|
+      unless self.users.include?(com.user)
+        self.ip_comms << IpComm.create(:faculty_id => com.id)
+      end
+    end
+  end
+
+  def set_status
+    self.status = IP_PENDING
+  end
 
   def accept
     flag = 0
     @ip.ip_committees.each do |comm|
-      if comm.vote != 1
+      if comm.vote != IP_ACCEPTED
         flag = 1
+      end
+      if comm.vote == IP_REJECTED
+        flag = 2
       end
     end
     if flag == 1
-      @ip.status = ACCEPTED
+      @ip.status = IP_ACCEPTED
+    end
+    if flag == 2
+      @ip.status = IP_REJECTED
     end
   end
 end
