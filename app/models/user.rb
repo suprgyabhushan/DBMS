@@ -15,6 +15,17 @@ class User < ActiveRecord::Base
   has_one :collaborator
   accepts_nested_attributes_for :collaborator
 
+  def active_for_authentication?
+    super && status?
+  end
+
+  def inactive_message
+    if !status?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
+  end
   def self.types
     %w(Student Faculty Collaborator)
   end

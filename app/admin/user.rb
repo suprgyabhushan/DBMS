@@ -13,6 +13,35 @@ ActiveAdmin.register User do
 #   permitted
 # end
 
-permit_params :status
+index do
+  selectable_column
+  column :email
+  column :status
+  column "Confirmation" do |user|
+    link_to ("Confirm") , status_user_path(user)
+  end
+  column :created_at
+  column :updated_at
+  actions
+end
+controller do
+    def status
+        user = User.find(params[:id])
+        user.status = !user.status # toggle the status
+        user.save
+        redirect_to user_path(user)
+    end
+  end
+  scope :confirmed_users do |users|
+    users.where('status = ?', 1)
+  end
+  scope :unconfirmed_users do |users|
+    users.where('status = ?', 0)
+  end
+
+
+
+
+permit_params :status, :user_id
 
 end

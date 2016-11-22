@@ -69,14 +69,14 @@ end
 
 
 scope :all, :default => true
-scope :pending_ip_assets do |microposts|
-  microposts.where('status = ?', 0)
+scope :pending_ip_assets do |ips|
+  ips.where('status = ?', 0)
 end
-scope :reviewing_ip_assets do |microposts|
-  microposts.where('status = ?', 1)
+scope :reviewing_ip_assets do |ips|
+  ips.where('status = ?', 1)
 end
-scope :accepted_ip_assets do |microposts|
-  microposts.where('status = ?', 2)
+scope :accepted_ip_assets do |ips|
+  ips.where('status = ?', 2)
 end
 
 permit_params :title, :description, :status

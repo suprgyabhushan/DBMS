@@ -13,6 +13,13 @@ Rails.application.routes.draw do
       :sign_up => 'register'
     }
   ActiveAdmin.routes(self)
+  scope :admin do
+    resources :users do
+      member do
+          get :status
+      end
+    end
+  end
   get '/review', to: "users#showr"
   get '/accept', to: "users#showa"
   root :to => redirect("/login")

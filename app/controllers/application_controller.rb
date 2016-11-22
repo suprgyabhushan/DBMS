@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   layout "application"
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me, :role,
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me, :role,:status,
       :student_attributes => [:rollNumber],
       :faculty_attributes => [:emp_id],
       :collaborator_attributes => [:company]
