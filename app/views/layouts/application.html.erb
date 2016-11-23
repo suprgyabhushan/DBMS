@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <!-- <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %> -->
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <!--     Fonts and icons     -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-
+  <title><%= yield(:title) %> | IIIT Bangalore</title>
 	<!-- CSS Files -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/css/material-kit.css" rel="stylesheet"/>
+    <link href="/css/demo.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css" media="screen" title="no title">
 </head>
-<body class="signup-page">
+<body class="components-page">
   <%= render "shared/nav" %>
-  <%= yield %>
-  <%= render "shared/footer" %>
+  <div class="wrapper">
+    <div class="header header-filter" style="background-image: url('https://images.unsplash.com/photo-1423655156442-ccc11daa4e99?crop=entropy&amp;dpr=2&amp;fit=crop&amp;fm=jpg&amp;h=750&amp;ixjsv=2.1.0&amp;ixlib=rb-0.3.5&amp;q=50&amp;w=1450');">
+  		<div class="container">
+  			<div class="row">
+  				<div class="col-md-6 col-md-offset-3 brand">
+  					<h1 class="title text-center"><%= yield(:title) %></h1>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+    <div class="main main-raised">
+      <div class="container">
+          <div class="section text-center section-landing">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    <%= render "shared/footer" %>
+  </div>
 </body>
 <%= render "shared/scripts" %>
 </html>
