@@ -12,6 +12,10 @@ class UsersController < ApplicationController
       @user.save
       redirect_to user_path(@user)
   end
+
+  def showpIP
+      @ips = Ip.all
+  end
   def showr
     if params[:id].nil? && current_user
       @user = current_user

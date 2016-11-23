@@ -17,7 +17,7 @@
     </div>
     <div class="field">
       <%= f.label :domain_id %>
-      <%= collection_select :ip, :domain, Domain.all || [], :id, :name, { prompt: 'Select Domain' }, { class: 'selectpicker' } %>
+      <%= f.collection_select :domain_id, Domain.all || [], :id, :name, { prompt: 'Select Domain' }, { class: 'selectpicker' } %>
     </div>
     <div class="form-group">
       <%= f.label :attachment %>

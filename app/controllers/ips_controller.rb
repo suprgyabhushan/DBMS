@@ -4,6 +4,31 @@ class IpsController < ApplicationController
     @ip = Ip.new
   end
 
+  def accept
+    # if current_user.try?(:faculty)
+    @ip = Ip.find(params[:id])
+    comm = @ip.ip_comms.where(:faculty_id => current_user.faculty.id).first
+    if comm.vote == nil or comm.vote == 0
+      comm.vote = 1
+    end
+    comm.save
+    redirect_to pendingIP_paths
+  end
+
+
+  def reject
+    # if current_user.try?(:faculty)
+    @ip = Ip.find(params[:id])
+    comm = @ip.ip_comms.where(:faculty_id => current_user.faculty.id).first
+    if comm.vote == nil or comm.vote == 0
+      comm.vote = 0
+    end
+    comm.save
+    redirect_to pendingIP_paths
+  end
+
+
+
   def create
     @ip = current_user.ips.build(ip_params)
    if @ip.save
