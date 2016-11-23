@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
     }, :path => '', :path_names => {
       :sign_in => 'login',
-      :sign_up => 'register'
+      :sign_up => 'register',
+      :sign_out => 'logout'
     }
   ActiveAdmin.routes(self)
   scope :admin do
@@ -26,8 +27,4 @@ Rails.application.routes.draw do
   get '/dashboard', to: "dashboard#index"
 
   resources :users , :has_one => :student
-
-  devise_scope :user do
-    get 'logout' => 'users/sessions#destroy'
-  end
 end

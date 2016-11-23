@@ -1,38 +1,37 @@
 <%= form_for @ip do |f| %>
-    <div class="field">
-      <%= f.label :title %>
-      <%= f.text_field :title, placeholder: "Title..." %>
-    </div>
-    <div class="field">
-      <%= f.label :description %>
-      <%= f.text_area :description, placeholder: "Create new IP..." %>
-    </div>
-    <div class="field">
-      <%= f.label :role %>
-      <%= f.text_field :role, placeholder: "Book or Others..." %>
-    </div>
-    <div class="field">
-      <%= f.label :identify_id %>
-      <%= f.text_field :identify_id, placeholder: "ID..." %>
-    </div>
-    <div class="field">
-      <%= f.label :domain_id %>
-      <%= collection_select :ip, :domain, Domain.all || [], :id, :name, { prompt: 'Select Domain' }, { class: 'selectpicker' } %>
+    <div class="form-group">
+      <%= f.label :title, class: "control-label" %>
+      <%= f.text_field :title, placeholder: "Title...", class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.label :attachment %>
+      <%= f.label :description, class: "control-label" %>
+      <%= f.text_area :description, placeholder: "Create new IP...", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :role, class: "control-label" %>
+      <%= f.text_field :role, placeholder: "Book or Others...", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :identify_id, class: "control-label" %>
+      <%= f.text_field :identify_id, placeholder: "ID...", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.collection_select :domain, Domain.all || [], :id, :name, { prompt: 'Select Domain' }, { data: {'live-search': true}, class: 'selectpicker'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :attachment, class: "control-label" %>
       <%= f.file_field :attachment, class: 'form-control'%>
     </div>
-    <p><strong>StakeHolders:</strong></p>
     <div id="stakes">
+      <h4>Stakeholders</h4>
       <%= f.fields_for :stakes do |stake| %>
         <%= render 'stake_fields', :f => stake %>
       <% end %>
       <div class="links">
-        <%= link_to_add_association 'Add stake', f, :stakes %>
+        <%= link_to_add_association 'Add Stakeholder', f, :stakes, class: 'btn btn-primary' %>
       </div>
     </div>
 
 
-  <%= f.submit "Submit", class: "btn btn-primary" %>
+  <%= f.submit "Submit", class: "btn btn-primary", style: 'float: right' %>
 <% end %>
