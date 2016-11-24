@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    #@microposts = @user.microposts.paginate(page: params[:page], per_page: 10)
   end
   def status
       @user = User.find(params[:id])
@@ -22,7 +21,6 @@ class UsersController < ApplicationController
     else
       @user = User.find(params[:id])
     end
-    #@microposts = @user.microposts.paginate(page: params[:page], per_page: 10)
   end
   def showa
     if params[:id].nil? && current_user
@@ -30,10 +28,9 @@ class UsersController < ApplicationController
     else
       @user = User.find(params[:id])
     end
-    #@microposts = @user.microposts.paginate(page: params[:page], per_page: 10)
   end
   def index
-    @users = User.find(:all)
+    @users = User.all
   end
   def new
 

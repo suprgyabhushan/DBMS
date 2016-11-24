@@ -3,7 +3,6 @@
   <h3>Reviewing IP's</h3>
   <ol class="ips">
   <% @ips.each do |ip| %>
-  <% if ip.status == 0 %>
       <li id="ip-<%= ip.id %>">
       <%= ip.title %>
       <span class="timestamp">
@@ -32,7 +31,6 @@
 
 
     </li>
-  <% end %>
   <% end %>
   </ol>
   </div>

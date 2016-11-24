@@ -21,14 +21,13 @@ Rails.application.routes.draw do
       end
     end
   end
-  get '/reviewingIP/', to:"users#showpIP"
-  get '/pending', to: "users#show"
-  get '/review', to: "users#showr"
-  get '/accept', to: "users#showa"
+  get '/pending', to: "dashboard#pending"
+  get '/reviewing', to: "dashboard#reviewing"
+  get '/accepted', to: "dashboard#accepted"
   root :to => redirect("/login")
   get '/dashboard', to: "dashboard#index"
   get '/acceptIP/:id', to: "ips#accept", as: "acceptIP"
   get '/rejectIP/:id', to: "ips#reject", as: "rejectIP"
 
-  resources :users , :has_one => :student
+  resources :users
 end
