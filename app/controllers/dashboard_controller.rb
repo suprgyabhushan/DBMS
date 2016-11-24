@@ -10,16 +10,13 @@ class DashboardController < ApplicationController
 
   def pending
     @ips = current_user.ips.where(:status => IP_PENDING)
-    render 'dashboard/accepted'
   end
 
   def reviewing
     @ips = current_user.ips.where(:status => IP_REVIEWING)
-    render 'dashboard/accepted'
   end
 
   def rejected
     @ips = current_user.ips.where(:status => IP_REJECTED)
-    render 'dashboard/accepted'
   end
 end
