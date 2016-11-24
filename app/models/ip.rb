@@ -10,7 +10,18 @@ class Ip < ActiveRecord::Base
 
   before_validation :set_status
   # after_save :set_stakes
-  after_save :set_ip_committee
+  after_create :set_ip_committee
+  after_save :set_ip_status
+
+  def set_missing
+    ip_com = Faculty.where(:ip_committee => true)
+    ip_com.each do |com|
+      if self.users.include?(com.user)
+        self.update_attributes(:missing => 1)
+      end
+    end
+  end
+
 
   def set_ip_committee
     ip_com = Faculty.where(:ip_committee => true)
@@ -19,10 +30,15 @@ class Ip < ActiveRecord::Base
         self.ip_comms << IpComm.create(:faculty_id => com.id)
       end
     end
+    set_ip_status
+  end
+
+  def set_ip_status
+    self.update_attributes(:status => IP_COM_MISSING) if self.ip_comms.length < 3
   end
 
   def set_status
-    self.status = IP_PENDING
+    self.status = IP_PENDING if self.status == nil
   end
 
   def accept

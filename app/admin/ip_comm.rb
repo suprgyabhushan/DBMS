@@ -19,12 +19,11 @@ index do
   column :ip_id
   column :faculty_id
   column :comment
+  column :missing
   actions
 end
 scope :all, :default => true
-scope :conflicting_ip_assets do |ip_comms|
-  ip_comms.where('vote = ?', 1)
-end
+
 
 permit_params :vote, :faculty, :ip, :comment
 end

@@ -78,6 +78,11 @@ end
 scope :accepted_ip_assets do |ips|
   ips.where('status = ?', 2)
 end
+scope :missing_ip_committee do |ips|
+  ips.where('status = ?', IP_COM_MISSING)
+
+end
+
 
 permit_params :title, :description, :status
 
