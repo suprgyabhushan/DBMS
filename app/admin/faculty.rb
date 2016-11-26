@@ -15,9 +15,21 @@ ActiveAdmin.register Faculty do
 index do
   selectable_column
   column :emp_id
-  column :ip_committee
+  column "Name" do |faculty|
+    faculty.user.email
+  end
+  column :ip_committee do |faculty|
+    if faculty.ip_committee == 1
+      "Yes"
+    else
+      "No"
+    end
+  end
   column "Confirmation" do |faculty|
     link_to "Enable", url_for(:action => :enable, :id => faculty.id), :method => :get
+  end
+  column "Disabling" do |faculty|
+    link_to "Disable", url_for(:action => :disable, :id => faculty.id), :method => :get
   end
 end
 
@@ -35,8 +47,20 @@ member_action :enable, :method => :get do
   redirect_to :action => :index
 end
 
+member_action :disable, :method => :get do
+  faculty = Faculty.find(params[:id])
+  ip_comm = Faculty.count(:ip_committee => 1)
 
+  flash[:notice] = "IP Committee has been disabled!"
+    faculty.ip_committee = 0
+    faculty.save
 
+  redirect_to :action => :index
+end
+scope :all, :default => true
+scope :ip_committee_members do |faculty|
+  faculty.where(:ip_committee => 1)
+end
 permit_params :ip_committee, :user_id
 
 end

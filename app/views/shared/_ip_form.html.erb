@@ -8,7 +8,7 @@
       <%= f.text_area :description, placeholder: "Create new IP...", class: "form-control" %>
     </div>
     <div class="form-group">
-      <%= f.label :role, class: "control-label" %>
+      <%= f.label "Type", class: "control-label" %>
       <%= f.text_field :role, placeholder: "Book or Others...", class: "form-control" %>
     </div>
     <div class="form-group">
@@ -17,19 +17,38 @@
     </div>
 
     <div class="form-group">
-      <%= f.collection_select :domain, Domain.all || [], :id, :name, { prompt: 'Select Domain' }, { data: {'live-search': true}, class: 'selectpicker'} %>
+      <%= f.collection_select :domain_id, Domain.all || [], :id, :name, { prompt: 'Select Domain' }, { data: {'live-search': true}, class: 'selectpicker'} %>
 
     </div>
     <div class="form-group">
       <%= f.label :attachment, class: "control-label" %>
       <%= f.file_field :attachment, class: 'form-control'%>
     </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary">Me</button>
+    </div>
+    <div class="form-group label-floating">
+      <label class="control-label">My Stake</label>
+      <input type="text" name="ip[percentage]" class='form-control'%>
+    </div>
+
     <div id="stakes">
       <h4>Stakeholders</h4>
       <%= f.fields_for :stakes do |stake| %>
+<!--
+        <div class="form-group">
+          <button type="button" class="btn btn-primary">Me</button>
+          <%= stake.text_field :user_id, value: current_user.id %>
+        </div>
+        <div class="form-group label-floating">
+          <%= stake.label :percentage, class: "control-label" %>
+          <%= stake.text_field :percentage,  class: 'form-control'%>
+        </div> -->
+
+
         <%= render 'stake_fields', :f => stake %>
       <% end %>
-      <div class="links">
+    <div class="links">
         <%= link_to_add_association 'Add Stakeholder', f, :stakes, class: 'btn btn-primary' %>
       </div>
     </div>

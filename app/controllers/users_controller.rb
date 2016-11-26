@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   def showpIP
       @ips = Ip.all
+      render 'dashboard/review'
   end
   def showr
     if params[:id].nil? && current_user

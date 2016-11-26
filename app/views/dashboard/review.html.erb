@@ -24,9 +24,13 @@
 
         <% end %>
       </ol>
-      <% if ip.ip_comms.where(:faculty_id => current_user.faculty.id).first == nil %>
+    <% ip.ip_comms.where(:faculty_id => current_user.faculty.id).each do |v| %>
+      <% if v.vote == 1 %>
+      <span><%= link_to "Reject", rejectIP_path(ip)%></span>
+      <% else %>
       <span><%= link_to "Accept", acceptIP_path(ip)%></span>
       <span><%= link_to "Reject", rejectIP_path(ip)%></span>
+      <% end %>
     <% end %>
 
 

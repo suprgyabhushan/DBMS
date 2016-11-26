@@ -31,13 +31,13 @@ index do
     link_to ip.title, [:edit_admin, ip]
   end
 
-  column :stakes do |ip|
-    table_for ip.stakes do
-      column do |stake|
-        link_to stake.user.email, [ :admin, stake ]
-        end
-    end
-  end
+  # column :stakes do |ip|
+  #   table_for ip.stakes do
+  #     column do |stake|
+  #       link_to stake.user.email, [ :admin, stake ]
+  #       end
+  #   end
+  # end
 
   column :percentage do |ip|
     table_for ip.stakes do
