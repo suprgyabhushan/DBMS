@@ -24,29 +24,31 @@
       <%= f.label :attachment, class: "control-label" %>
       <%= f.file_field :attachment, class: 'form-control'%>
     </div>
-    <div class="form-group">
+    <!--<div class="form-group">
       <button type="button" class="btn btn-primary">Me</button>
     </div>
     <div class="form-group label-floating">
       <label class="control-label">My Stake</label>
       <input type="text" name="ip[percentage]" class='form-control'%>
-    </div>
+    </div>-->
 
     <div id="stakes">
       <h4>Stakeholders</h4>
       <%= f.fields_for :stakes do |stake| %>
-<!--
+      <% if stake.object.user_id == current_user.id %>
+      <div class="nested-fields">
         <div class="form-group">
           <button type="button" class="btn btn-primary">Me</button>
-          <%= stake.text_field :user_id, value: current_user.id %>
+          <%= stake.hidden_field :user_id %>
         </div>
         <div class="form-group label-floating">
           <%= stake.label :percentage, class: "control-label" %>
           <%= stake.text_field :percentage,  class: 'form-control'%>
-        </div> -->
-
-
-        <%= render 'stake_fields', :f => stake %>
+        </div>
+      </div>
+        <% else %>
+          <%= render 'stake_fields', :f => stake %>
+        <% end %>
       <% end %>
     <div class="links">
         <%= link_to_add_association 'Add Stakeholder', f, :stakes, class: 'btn btn-primary' %>

@@ -2,7 +2,6 @@ class IpsController < ApplicationController
   #before_action :set_ip, only: [:show, :edit, :update, :destroy]
   def new
     @ip = Ip.new
-    @ip.stakes.build
   end
 
   def accept
@@ -34,8 +33,8 @@ class IpsController < ApplicationController
 
   def create
     @ip = current_user.ips.build(ip_params)
-    puts params[:ip][:percentage]
-    @ip.stakes << Stake.new({user_id: current_user.id, percentage: params[:ip][:percentage]})
+    # puts params[:ip][:percentage]
+    # @ip.stakes << Stake.new({user_id: current_user.id, percentage: params[:ip][:percentage]})
    if @ip.save
      flash[:success] = "IP created!"
      redirect_to '/dashboard'

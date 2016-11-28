@@ -1,7 +1,8 @@
 class DashboardController < ApplicationController
   def index
     @ip = Ip.new
-    @ip.stakes.build
+    @ip.stakes.build(user_id: current_user.id)
+    # @ip.stakes.first.user_id = current_user.id
   end
 
   def accepted
@@ -9,7 +10,7 @@ class DashboardController < ApplicationController
   end
 
   def pending
-    @ips = current_user.ips.where(:status => IP_PENDING)
+    @ips = current_user.ips.where(:status => [IP_COM_MISSING,IP_PENDING])
   end
 
   def reviewing
