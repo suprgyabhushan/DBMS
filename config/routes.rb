@@ -29,6 +29,6 @@ Rails.application.routes.draw do
   get '/dashboard', to: "dashboard#index"
   get '/acceptIP/:id', to: "ips#accept", as: "acceptIP"
   get '/rejectIP/:id', to: "ips#reject", as: "rejectIP"
-
+  get 'reviewingIP', to: "users#showpIP", as: "reviewingIP"
   resources :users
 end

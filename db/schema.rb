@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161128200958) do
+
+ActiveRecord::Schema.define(version: 20161124094319) do
+
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -45,10 +47,10 @@ ActiveRecord::Schema.define(version: 20161128200958) do
 
   create_table "faculties", force: :cascade do |t|
     t.string   "emp_id",       limit: 255
-    t.boolean  "ip_committee"
     t.integer  "user_id",      limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "ip_committee", limit: 4,   default: 0
   end
 
   add_index "faculties", ["user_id"], name: "index_faculties_on_user_id", using: :btree
