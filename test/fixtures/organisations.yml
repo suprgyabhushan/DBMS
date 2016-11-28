@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  royalty_accumulated: 1.5
+  royalty_credited: 1.5
+  user_id: 
+
+two:
+  name: MyString
+  royalty_accumulated: 1.5
+  royalty_credited: 1.5
+  user_id: 

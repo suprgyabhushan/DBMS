@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @organisation.name %>
+</p>
+
+<p>
+  <strong>Royalty accumulated:</strong>
+  <%= @organisation.royalty_accumulated %>
+</p>
+
+<p>
+  <strong>Royalty credited:</strong>
+  <%= @organisation.royalty_credited %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @organisation.user %>
+</p>
+
+<%= link_to 'Edit', edit_organisation_path(@organisation) %> |
+<%= link_to 'Back', organisations_path %>

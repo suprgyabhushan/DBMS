@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114114821) do
+ActiveRecord::Schema.define(version: 20161128200958) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -79,6 +79,17 @@ ActiveRecord::Schema.define(version: 20161114114821) do
 
   add_index "ips", ["domain_id"], name: "index_ips_on_domain_id", using: :btree
 
+  create_table "organisations", force: :cascade do |t|
+    t.string   "name",                limit: 255
+    t.float    "royalty_accumulated", limit: 24
+    t.float    "royalty_credited",    limit: 24
+    t.integer  "user_id",             limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "organisations", ["user_id"], name: "index_organisations_on_user_id", using: :btree
+
   create_table "stakes", force: :cascade do |t|
     t.float    "percentage", limit: 24
     t.integer  "user_id",    limit: 4
@@ -130,6 +141,7 @@ ActiveRecord::Schema.define(version: 20161114114821) do
   add_foreign_key "ip_comms", "faculties"
   add_foreign_key "ip_comms", "ips"
   add_foreign_key "ips", "domains"
+  add_foreign_key "organisations", "users"
   add_foreign_key "stakes", "ips"
   add_foreign_key "stakes", "users"
   add_foreign_key "students", "users"
