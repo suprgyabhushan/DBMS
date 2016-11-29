@@ -1,6 +1,7 @@
 <div class="nested-fields form-inline">
   <div class="form-group">
-    <%= f.collection_select :user_id, User.all || [], :id, :email, { prompt: 'Select User' }, {  data: {'live-search': true}, class: 'selectpicker' } %>
+    <%= f.hidden_field :stakeholder_type, value: "User" %>
+    <%= f.collection_select :stakeholder_id, User.all || [], :id, :email, { prompt: 'Select User' }, {  data: {'live-search': true}, class: 'selectpicker' } %>
   </div>
   <div class="form-group label-floating">
     <%= f.label :percentage, class: "control-label" %>

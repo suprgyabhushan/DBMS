@@ -2,7 +2,8 @@ class Ip < ActiveRecord::Base
   belongs_to :domain
   has_many :stakes
   has_many :ip_comms
-  has_many :users, through: :stakes, as: :stakeholders
+  has_many :users, through: :stakes, source: :stakeholder, source_type: 'User'
+  has_many :organisations, through: :stakes, source: :stakeholder, source_type: 'Organisation'
   has_many :faculties, through: :ip_comms, as: :ip_committee
   mount_uploader :attachment, AttachmentUploader # Tells rails to use this uploader for this model.
   accepts_nested_attributes_for :stakes, :reject_if => :all_blank , :allow_destroy =>true
@@ -61,11 +62,11 @@ class Ip < ActiveRecord::Base
         flag = flag + 1 if com.vote == IP_ACCEPTED
         # flag = 2 if com.vote == nil
         # flag = 2 if com.vote == IP_REJECTED
-      end
-      if flag == self.ip_comms.length
-        puts flag
-        self.status = IP_ACCEPTED
-      end
+    end
+    if flag == self.ip_comms.length
+      puts flag
+      self.status = IP_ACCEPTED
+    end
       # self.update_attributes(:status => IP_COM_DECLINED) if flag == IP_DECLINED
       # self.update_attributes(:status => IP_COM_REJECTED) if flag == IP_REJECTED
     end

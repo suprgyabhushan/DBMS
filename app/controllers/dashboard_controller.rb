@@ -1,7 +1,8 @@
 class DashboardController < ApplicationController
   def index
     @ip = Ip.new
-    @ip.stakes.build(user_id: current_user.id)
+    @ip.stakes.build(stakeholder_id: current_user.id)
+    @ip.stakes.build(stakeholder_id: current_user.organisations.first.id)
     # @ip.stakes.first.user_id = current_user.id
   end
 

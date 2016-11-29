@@ -1,5 +1,10 @@
 class IpsController < ApplicationController
   #before_action :set_ip, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @ips = Ip.all
+  end
+   
   def new
     @ip = Ip.new
   end
@@ -53,6 +58,6 @@ class IpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ip_params
-      params.require(:ip).permit(:title, :description, :identify_id, :status, :role, :domain_id, :attachment, stakes_attributes: [:id, :percentage, :user_id, :_destroy])
+      params.require(:ip).permit(:title, :description, :identify_id, :status, :role, :domain_id, :attachment, stakes_attributes: [:id, :percentage, :stakeholder_type, :stakeholder_id, :_destroy])
     end
 end

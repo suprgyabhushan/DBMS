@@ -11,7 +11,12 @@
       <ol>
         <% ip.stakes.each do |stake| %>
           <span><%= stake.percentage %></span>
-          <span><%= stake.user.email %></span>
+          <% if stake.stakeholder_type == "User" %>
+          <span><%= stake.stakeholder.email%></span>
+          <% elsif stake.stakeholder_type =="Organisation" %>
+          <span><%= stake.stakeholder.name%></span>
+          <% end %>
+
 
         <% end %>
       </ol>

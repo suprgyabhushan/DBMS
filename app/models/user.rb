@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:microsoft_office365 , :google, :facebook]
 
-  has_many :stakes
+  has_many :stakes, as: :stakeholder
   has_many :ips, through: :stakes
   accepts_nested_attributes_for :stakes
   has_one :student
@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :faculty
   has_one :collaborator
   accepts_nested_attributes_for :collaborator
+  has_many :organisations
 
   def active_for_authentication?
     super && status?
