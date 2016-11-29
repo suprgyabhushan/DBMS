@@ -38,5 +38,10 @@ $(document).ready(function(){
       $('select').selectpicker('refresh');
     }, 100);
     });
+
+    $('#stakes').on('change', 'select', function(e){
+      var select = e.target;
+      var user_type = $(select.options[select.selectedIndex]).closest('optgroup').prop('label');
+    })
 });
 </script>
