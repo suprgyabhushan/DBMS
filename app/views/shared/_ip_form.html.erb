@@ -35,7 +35,7 @@
     <div id="stakes">
       <h4>Stakeholders</h4>
       <%= f.fields_for :stakes do |stake| %>
-      <% if stake.object.stakeholder_id == current_user.organisations.first.id %>
+      <% if stake.object.stakeholder_id == Organisation.first.id %>
       <div class="nested-fields">
         <div class="form-group">
           <button type="button" class="btn btn-primary">Organisation</button>

@@ -42,6 +42,7 @@ $(document).ready(function(){
     $('#stakes').on('change', 'select', function(e){
       var select = e.target;
       var user_type = $(select.options[select.selectedIndex]).closest('optgroup').prop('label');
+      $(select).parent().parent().find('input[type=hidden]').val(user_type);
     })
 });
 </script>
