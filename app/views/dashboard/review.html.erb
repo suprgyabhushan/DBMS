@@ -10,8 +10,13 @@
       </span>
       <ol>
         <% ip.stakes.each do |stake| %>
-          <span><%= stake.percentage %></span>
-          <span><%= stake.user.email %></span>
+        <span><%= stake.percentage %></span>
+        <% if stake.stakeholder_type == "User" %>
+        <span><%= stake.stakeholder.email%></span>
+        <% elsif stake.stakeholder_type =="Organisation" %>
+        <span><%= stake.stakeholder.name%></span>
+        <% end %>
+
 
         <% end %>
       </ol>
@@ -19,6 +24,15 @@
       <ol>
         <% ip.ip_comms.each do |comm| %>
 
+          <% if comm.vote == 1 %>
+            Approved By :-
+          <% elsif comm.vote == 0 %>
+            Not Approved By :-
+          <% elsif comm.vote == -1 %>
+            Rejected By :-
+          <% else %>
+            Not Approved yet By :-
+          <% end %>
           <span><%= comm.vote %></span>
           <span><%= comm.faculty.user.email %></span>
 
@@ -27,6 +41,8 @@
     <% ip.ip_comms.where(:faculty_id => current_user.faculty.id).each do |v| %>
       <% if v.vote == 1 %>
       <span><%= link_to "Reject", rejectIP_path(ip)%></span>
+      <% elsif v.vote == -1 %>
+      <span><%= link_to "Accept", acceptIP_path(ip)%></span>
       <% else %>
       <span><%= link_to "Accept", acceptIP_path(ip)%></span>
       <span><%= link_to "Reject", rejectIP_path(ip)%></span>

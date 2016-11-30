@@ -7,18 +7,34 @@ class DashboardController < ApplicationController
   end
 
   def accepted
-    @ips = current_user.ips.where(:status => IP_ACCEPTED)
+    if params[:ip]
+      @ips = current_user.ips.where(:status => IP_ACCEPTED).filter(params[:ip].slice(:domain_id))
+    else
+      @ips = current_user.ips.where(:status => IP_ACCEPTED)
+    end
   end
 
   def pending
-    @ips = current_user.ips.where(:status => [IP_COM_MISSING,IP_PENDING])
+    if params[:ip]
+      @ips = current_user.ips.where(:status => [IP_COM_MISSING,IP_PENDING]).filter(params[:ip].slice(:domain_id))
+    else
+      @ips = current_user.ips.where(:status => [IP_COM_MISSING,IP_PENDING])
+    end
   end
 
   def reviewing
-    @ips = current_user.ips.where(:status => IP_REVIEWING)
+    if params[:ip]
+      @ips = current_user.ips.where(:status => IP_REVIEWING).filter(params[:ip].slice(:domain_id))
+    else
+      @ips = current_user.ips.where(:status => IP_REVIEWING)
+    end
   end
 
   def rejected
-    @ips = current_user.ips.where(:status => IP_REJECTED)
+    if params[:ip]
+      @ips = current_user.ips.where(:status => IP_REJECTED).filter(params[:ip].slice(:domain_id))
+    else
+      @ips = current_user.ips.where(:status => IP_REJECTED)
+    end
   end
 end

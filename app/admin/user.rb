@@ -17,8 +17,13 @@ index do
   selectable_column
   column :email
   column :status
+  column :royalty_credited
+  column :royalty_accumulated
   column "Confirmation" do |user|
     link_to ("Confirm") , status_user_path(user)
+  end
+  column "Clearing Credits" do |user|
+    link_to ("Clear") , clear_user_path(user)
   end
   column :created_at
   column :updated_at

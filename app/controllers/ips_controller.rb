@@ -2,9 +2,13 @@ class IpsController < ApplicationController
   #before_action :set_ip, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ips = Ip.all
+    if params[:ip]
+      @ips = Ip.where(:status => IP_ACCEPTED).filter(params[:ip].slice(:domain_id))
+    else
+      @ips = Ip.where(:status => IP_ACCEPTED)
+    end
   end
-   
+
   def new
     @ip = Ip.new
   end
@@ -13,7 +17,7 @@ class IpsController < ApplicationController
     # if current_user.try?(:faculty)
     @ip = Ip.find(params[:id])
     comm = @ip.ip_comms.where(:faculty_id => current_user.faculty.id).first
-    if comm.vote == nil or comm.vote == 0
+    if (comm.vote == nil or comm.vote == 0 or comm.vote == -1)
       comm.vote = 1
     end
     comm.save
@@ -27,7 +31,7 @@ class IpsController < ApplicationController
     @ip = Ip.find(params[:id])
     comm = @ip.ip_comms.where(:faculty_id => current_user.faculty.id).first
     if comm.vote == nil or comm.vote == 1
-      comm.vote = 0
+      comm.vote = -1
     end
     comm.save
     @ip.save
@@ -46,6 +50,13 @@ class IpsController < ApplicationController
    else
      redirect_to '/dashboard'
    end
+  end
+
+  def show
+    @ip = Ip.find(params[:id])
+  end
+  def edit
+    @ip = Ip.find(params[:id])
   end
 
   def destroy

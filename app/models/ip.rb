@@ -13,13 +13,15 @@ class Ip < ActiveRecord::Base
   # after_save :set_stakes
   after_create :set_ip_committee
   before_save :set_ip_status
-  # after_create :total
-  validate do
-    total2
+  after_create :total
+
+
+  def self.filter(filter)
+    if filter
+      where(ips: filter)
+    end
   end
-  def total2
-    return self.stakes.sum(:percentage) == 100
-  end
+
   def total
     if(self.stakes.sum(:percentage) == 100)
       puts(self.stakes.sum(:percentage))

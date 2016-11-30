@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :users do
       member do
           get :status
+          get :clear
       end
     end
   end
@@ -31,5 +32,6 @@ Rails.application.routes.draw do
   get '/acceptIP/:id', to: "ips#accept", as: "acceptIP"
   get '/rejectIP/:id', to: "ips#reject", as: "rejectIP"
   get 'reviewingIP', to: "users#showpIP", as: "reviewingIP"
+  get 'acceptedIP', to: "users#showaIP", as: "acceptedIP"
   resources :users
 end

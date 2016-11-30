@@ -21,14 +21,15 @@
 </p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @ip.type %>
+  <strong>Role:</strong>
+  <%= @ip.role %>
 </p>
 
 <p>
   <strong>Domain:</strong>
-  <%= @ip.domain %>
+  <%= @ip.domain.name %>
 </p>
-
-<%= link_to 'Edit', edit_ip_path(@ip) %> |
-<%= link_to 'Back', ips_path %>
+<% if @ip.status == IP_REJECTED or @ip.status == IP_PENDING %>
+<%= link_to 'Edit', edit_ip_path(@ip) %>
+<% end %> |
+<%= link_to 'Back', dashboard_path %>

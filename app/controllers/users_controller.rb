@@ -11,10 +11,27 @@ class UsersController < ApplicationController
       @user.save
       redirect_to user_path(@user)
   end
+  def clear
+      @user = User.find(params[:id])
+      @users = User.all
+      if(@user.royalty_credited > 0)
+        @user.royalty_credited = 0 # toggle the status
+      end
+      @user.save
+      redirect_to users_path()
+  end
 
   def showpIP
       @ips = Ip.all
       render 'dashboard/review'
+  end
+  def showaIP
+    if params[:ip]
+      @ips = Ip.where(:status => IP_ACCEPTED).filter(params[:ip].slice(:domain_id))
+    else
+      @ips = Ip.where(:status => IP_ACCEPTED)
+    end
+    render 'dashboard/accept'
   end
   def showr
     if params[:id].nil? && current_user

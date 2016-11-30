@@ -1,0 +1,45 @@
+<%= current_user.email %> <br>
+<ol class="ips">
+<% @ips.each do |ip| %>
+    <li id="ip-<%= ip.id %>">
+    <span class="title"><%= ip.title %></span>
+    <span class="timestamp">
+    Posted <%= time_ago_in_words(ip.created_at) %> ago.
+    </span>
+    <ol>
+      <% ip.stakes.each do |stake| %>
+        <span><%= stake.percentage %></span>
+        <% if stake.stakeholder_type == "User" %>
+        <span><%= stake.stakeholder.email%></span>
+        <% elsif stake.stakeholder_type =="Organisation" %>
+        <span><%= stake.stakeholder.name%></span>
+        <% end %>
+
+
+      <% end %>
+    </ol>
+    <span><%= link_to "Download IP Asset Document", ip.attachment_url, target: '_blank' %></span>
+    <ol>
+      <% ip.ip_comms.each do |comm| %>
+
+        <% if comm.vote == 1 %>
+          Approved By :-
+        <% elsif comm.vote == 0 %>
+          Not Approved By :-
+        <% elsif comm.vote == -1 %>
+          Rejected By :-
+        <% else %>
+          Not Approved yet By :-
+        <% end %>
+        <span><%= comm.vote %></span>
+        <span><%= comm.faculty.user.email %></span>
+
+      <% end %>
+    </ol>
+    <span><%= link_to 'Show', ip %></span>
+    <% if ip.status == IP_REJECTED or ip.status == IP_PENDING %>
+    <%= link_to 'Edit', edit_ip_path(ip) %>
+    <% end %>
+  </li>
+<% end %>
+</ol>

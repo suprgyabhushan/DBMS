@@ -23,10 +23,10 @@
         <td><%= ip.identify_id %></td>
         <td><%= ip.status %></td>
         <td><%= ip.role %></td>
-        <td><%= ip.domain %></td>
+        <td><%= ip.domain.name %></td>
         <td><%= link_to 'Show', ip %></td>
-        <td><%= link_to 'Edit', edit_ip_path(ip) %></td>
-        <td><%= link_to 'Destroy', ip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!--<td><%= link_to 'Edit', edit_ip_path(ip) %></td>
+        <td><%= link_to 'Destroy', ip, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Ip', new_ip_path %>
+<!--<%= link_to 'New Ip', new_ip_path %>-->
