@@ -39,10 +39,10 @@ $(document).ready(function(){
     }, 100);
     });
 
-    $('#stakes').on('change', 'select', function(e){
+    $('.polymorphic').on('change', 'select', function(e){
       var select = e.target;
       var user_type = $(select.options[select.selectedIndex]).closest('optgroup').prop('label');
-      $(select).parent().parent().find('input[type=hidden]').val(user_type);
+      $(select).parent().parent().find('input[type=hidden]').val(user_type.substring(0, user_type.length - 1));
     })
 });
 </script>

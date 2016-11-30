@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Agreement:</strong>
+  <%= @licence.agreement %>
+</p>
+
+<p>
+  <strong>Royalty to pay:</strong>
+  <%= @licence.royalty_to_pay %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @licence.end_time %>
+</p>
+
+<p>
+  <strong>Payment type:</strong>
+  <%= @licence.payment_type %>
+</p>
+
+<p>
+  <strong>Licencee:</strong>
+  <%= @licence.licencee %>
+</p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @licence.ip %>
+</p>
+
+<%= link_to 'Edit', edit_licence_path(@licence) %> |
+<%= link_to 'Back', licences_path %>

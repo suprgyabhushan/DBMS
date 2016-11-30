@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  agreement: 
+  royalty_to_pay: 1.5
+  end_time: 2016-11-30 11:38:51
+  payment_type: 1
+  licencee_id: 
+  licencee_type: Licencee
+  ip_id: 
+
+two:
+  agreement: 
+  royalty_to_pay: 1.5
+  end_time: 2016-11-30 11:38:51
+  payment_type: 1
+  licencee_id: 
+  licencee_type: Licencee
+  ip_id: 

@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :collaborator
   has_many :organisations
 
+  has_many :licences, as: :licencee
+
   def active_for_authentication?
     super && status?
   end

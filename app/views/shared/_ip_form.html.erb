@@ -18,7 +18,6 @@
 
     <div class="form-group">
       <%= f.collection_select :domain_id, Domain.all || [], :id, :name, { prompt: 'Select Domain' }, { data: {'live-search': true}, class: 'selectpicker'} %>
-
     </div>
     <div class="form-group">
       <%= f.label :attachment, class: "control-label" %>
