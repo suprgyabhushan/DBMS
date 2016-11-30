@@ -34,24 +34,24 @@
     <div id="stakes">
       <h4>Stakeholders</h4>
       <%= f.fields_for :stakes do |stake| %>
-      <% if stake.object.stakeholder_id == Organisation.first.id %>
-      <div class="nested-fields">
+      <% if stake.object.stakeholder == Organisation.first %>
+      <div class="nested-fields form-inline">
         <div class="form-group">
-          <button type="button" class="btn btn-primary">Organisation</button>
+          <button type="button" class="btn btn-primary"><%= stake.object.stakeholder.name %></button>
           <%= stake.hidden_field :stakeholder_id %>
-          <%= stake.hidden_field :stakeholder_type, value: "Organisation" %>
+          <%= stake.hidden_field :stakeholder_type %>
         </div>
         <div class="form-group label-floating">
           <%= stake.label :percentage, class: "control-label" %>
-          <%= stake.text_field :percentage,  class: 'form-control', value: '20'%>
+          <%= stake.text_field :percentage,  class: 'form-control' %>
         </div>
       </div>
-      <% elsif stake.object.stakeholder_id == current_user.id %>
-      <div class="nested-fields">
+      <% elsif stake.object.stakeholder == current_user %>
+      <div class="nested-fields form-inline">
         <div class="form-group">
           <button type="button" class="btn btn-primary">Me</button>
           <%= stake.hidden_field :stakeholder_id %>
-          <%= stake.hidden_field :stakeholder_type, value: "User" %>
+          <%= stake.hidden_field :stakeholder_type %>
         </div>
         <div class="form-group label-floating">
           <%= stake.label :percentage, class: "control-label" %>
