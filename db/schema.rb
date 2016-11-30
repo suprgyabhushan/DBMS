@@ -11,9 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< Updated upstream
+ActiveRecord::Schema.define(version: 20161130175638) do
+=======
 
-ActiveRecord::Schema.define(version: 20161124094319) do
+ActiveRecord::Schema.define(version: 20161130060851) do
 
+>>>>>>> Stashed changes
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -40,49 +44,88 @@ ActiveRecord::Schema.define(version: 20161124094319) do
   add_index "collaborators", ["user_id"], name: "index_collaborators_on_user_id", using: :btree
 
   create_table "domains", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",       limit: 255, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
+  add_index "domains", ["name"], name: "index_domains_on_name", unique: true, using: :btree
+
   create_table "faculties", force: :cascade do |t|
-    t.string   "emp_id",       limit: 255
+    t.string   "emp_id",       limit: 255, null: false
+    t.boolean  "ip_committee"
     t.integer  "user_id",      limit: 4
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "ip_committee", limit: 4,   default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
+  add_index "faculties", ["emp_id"], name: "index_faculties_on_emp_id", unique: true, using: :btree
   add_index "faculties", ["user_id"], name: "index_faculties_on_user_id", using: :btree
 
   create_table "ip_comms", force: :cascade do |t|
     t.integer  "vote",       limit: 4
     t.text     "comment",    limit: 65535
-    t.integer  "faculty_id", limit: 4
-    t.integer  "ip_id",      limit: 4
+    t.integer  "faculty_id", limit: 4,     null: false
+    t.integer  "ip_id",      limit: 4,     null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
 
+  add_index "ip_comms", ["faculty_id", "ip_id"], name: "index_ip_comms_on_faculty_id_and_ip_id", unique: true, using: :btree
   add_index "ip_comms", ["faculty_id"], name: "index_ip_comms_on_faculty_id", using: :btree
   add_index "ip_comms", ["ip_id"], name: "index_ip_comms_on_ip_id", using: :btree
 
   create_table "ips", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
+    t.string   "title",       limit: 255,               null: false
+    t.text     "description", limit: 65535,             null: false
     t.string   "identify_id", limit: 255
     t.integer  "domain_id",   limit: 4
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.integer  "status",      limit: 4,     default: 0
     t.string   "role",        limit: 255
-    t.string   "attachment",  limit: 255
+    t.string   "attachment",  limit: 255,               null: false
   end
 
   add_index "ips", ["domain_id"], name: "index_ips_on_domain_id", using: :btree
+  add_index "ips", ["title", "attachment"], name: "index_ips_on_title_and_attachment", unique: true, using: :btree
+
+  create_table "licences", force: :cascade do |t|
+    t.string   "agreement",      limit: 255,             null: false
+    t.float    "royalty_to_pay", limit: 24,              null: false
+    t.datetime "end_time",                               null: false
+    t.integer  "payment_type",   limit: 4,   default: 1, null: false
+    t.integer  "licencee_id",    limit: 4,               null: false
+    t.string   "licencee_type",  limit: 255,             null: false
+    t.integer  "ip_id",          limit: 4,               null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "licences", ["ip_id"], name: "index_licences_on_ip_id", using: :btree
+  add_index "licences", ["licencee_id", "licencee_type", "ip_id"], name: "index_licences_on_licencee_id_and_licencee_type_and_ip_id", unique: true, using: :btree
+  add_index "licences", ["licencee_type", "licencee_id"], name: "index_licences_on_licencee_type_and_licencee_id", using: :btree
+<<<<<<< Updated upstream
+=======
+
+  create_table "licences", force: :cascade do |t|
+    t.string   "agreement",      limit: 255
+    t.float    "royalty_to_pay", limit: 24
+    t.datetime "end_time"
+    t.integer  "payment_type",   limit: 4
+    t.integer  "licencee_id",    limit: 4
+    t.string   "licencee_type",  limit: 255
+    t.integer  "ip_id",          limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "licences", ["ip_id"], name: "index_licences_on_ip_id", using: :btree
+  add_index "licences", ["licencee_type", "licencee_id"], name: "index_licences_on_licencee_type_and_licencee_id", using: :btree
+>>>>>>> Stashed changes
 
   create_table "organisations", force: :cascade do |t|
-    t.string   "name",                limit: 255
+    t.string   "name",                limit: 255, null: false
     t.float    "royalty_accumulated", limit: 24
     t.float    "royalty_credited",    limit: 24
     t.integer  "user_id",             limit: 4
@@ -90,26 +133,39 @@ ActiveRecord::Schema.define(version: 20161124094319) do
     t.datetime "updated_at",                      null: false
   end
 
+  add_index "organisations", ["name"], name: "index_organisations_on_name", unique: true, using: :btree
   add_index "organisations", ["user_id"], name: "index_organisations_on_user_id", using: :btree
 
   create_table "stakes", force: :cascade do |t|
-    t.float    "percentage", limit: 24
-    t.integer  "user_id",    limit: 4
-    t.integer  "ip_id",      limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+
+
+    t.string   "stakeholder_type", limit: 255
+    t.float    "percentage",       limit: 24
+    t.integer  "stakeholder_id",   limit: 4
+    t.integer  "ip_id",            limit: 4
+
+
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
+<<<<<<< Updated upstream
   add_index "stakes", ["ip_id"], name: "index_stakes_on_ip_id", using: :btree
-  add_index "stakes", ["user_id"], name: "index_stakes_on_user_id", using: :btree
+  add_index "stakes", ["stakeholder_id", "stakeholder_type", "ip_id"], name: "index_stakes_on_stakeholder_id_and_stakeholder_type_and_ip_id", unique: true, using: :btree
+  add_index "stakes", ["stakeholder_id"], name: "index_stakes_on_stakeholder_id", using: :btree
+=======
+
+  add_index "stakes", ["stakeholder_id", "stakeholder_type", "ip_id"], name: "index_stakes_on_stakeholder_id_and_stakeholder_type_and_ip_id", unique: true, using: :btree
+>>>>>>> Stashed changes
 
   create_table "students", force: :cascade do |t|
-    t.string   "rollNumber", limit: 255
+    t.string   "rollNumber", limit: 255, null: false
     t.integer  "user_id",    limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
+  add_index "students", ["rollNumber"], name: "index_students_on_rollNumber", unique: true, using: :btree
   add_index "students", ["user_id"], name: "index_students_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -123,6 +179,13 @@ ActiveRecord::Schema.define(version: 20161124094319) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email",      limit: 255
+    t.integer  "failed_attempts",        limit: 4,   default: 0,  null: false
+    t.string   "unlock_token",           limit: 255
+    t.datetime "locked_at"
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "provider",               limit: 255
@@ -135,16 +198,19 @@ ActiveRecord::Schema.define(version: 20161124094319) do
     t.string   "role",                   limit: 255
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   add_foreign_key "collaborators", "users"
   add_foreign_key "faculties", "users"
   add_foreign_key "ip_comms", "faculties"
   add_foreign_key "ip_comms", "ips"
   add_foreign_key "ips", "domains"
+  add_foreign_key "licences", "ips"
   add_foreign_key "organisations", "users"
   add_foreign_key "stakes", "ips"
-  add_foreign_key "stakes", "users"
+  add_foreign_key "stakes", "users", column: "stakeholder_id"
   add_foreign_key "students", "users"
 end
