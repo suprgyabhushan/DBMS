@@ -12,6 +12,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.build_collaborator
   end
 
+  def edit
+    # super
+    @user = User.new
+    @user.build_student
+    @user.build_faculty
+    @user.build_collaborator
+
+  end
+
+  def update
+    redirect_to dashboard_path
+  end
+
+  def update_resource(resource, params)
+      resource.update_without_password(params)
+  end
+
+
+
   # POST /resource
   # def create
   #   super
@@ -49,9 +68,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+   #def configure_account_update_params
+    # devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+   #end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
@@ -62,4 +81,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+
 end
