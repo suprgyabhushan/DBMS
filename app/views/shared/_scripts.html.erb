@@ -33,6 +33,15 @@ $(document).ready(function(){
         $("#collaborator_val").hide();
       }
   });
+  $(".radio1").change(function(){
+    if($(".radio1").prop("checked") == true){
+      $(".text20").prop("min", '50');
+      $(".text20 input").val(50);
+    }else{
+      $(".text20").prop("min", '20');
+      $(".text20 input").val(20);
+    }
+    });
   $('a.add_fields').click(function(e, insertedItem){
     setTimeout(function() {
       $('select').selectpicker('refresh');

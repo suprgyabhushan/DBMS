@@ -6,7 +6,7 @@ class Ip < ActiveRecord::Base
   has_many :organisations, through: :stakes, source: :stakeholder, source_type: 'Organisation'
   has_many :faculties, through: :ip_comms, as: :ip_committee
   mount_uploader :attachment, AttachmentUploader # Tells rails to use this uploader for this model.
-  accepts_nested_attributes_for :stakes, :reject_if => :all_blank , :allow_destroy =>true
+  accepts_nested_attributes_for :stakes, :reject_if => :all_blank, :allow_destroy =>true
   accepts_nested_attributes_for :users
 
   before_validation :set_status

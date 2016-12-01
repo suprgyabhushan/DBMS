@@ -43,7 +43,17 @@ class IpsController < ApplicationController
 
   def create
     @ip = Ip.new(ip_params)
-
+    stake = params[:ip][:stakes_attributes]["0"][:percentage].to_i
+    if params[:check]
+      if stake < 50
+        flash[:notice] = Organisation.first.name + "'s stake cannot be less than 50%"
+        render :new and return
+      end
+    end
+    if stake < 20
+      flash[:notice] = Organisation.first.name + "'s stake cannot be less than 50%"
+      render :new and return
+    end
     respond_to do |format|
       if @ip.save!
         format.html { redirect_to @ip, notice: 'IP was successfully created.' }
