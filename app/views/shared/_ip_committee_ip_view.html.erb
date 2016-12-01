@@ -1,12 +1,13 @@
 <p> Stakeholders:</p>
 <ol>
   <% ip.stakes.each do |stake| %>
-    <span><%= stake.percentage %></span>
+    <li><span><%= stake.percentage %>% belongs to</span>
     <% if stake.stakeholder_type == "User" %>
       <span><%= stake.stakeholder.email%></span>
     <% elsif stake.stakeholder_type =="Organisation" %>
       <span><%= stake.stakeholder.name%></span>
     <% end %>
+  </li>
   <% end %>
 </ol>
 <p>IP Committee Members:</p>

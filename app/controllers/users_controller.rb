@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def showpIP
-      @ips = Ip.all
+      @ips = Ip.where(:status => IP_REVIEWING)
       render 'dashboard/review'
   end
   def showaIP
