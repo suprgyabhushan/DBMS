@@ -23,8 +23,21 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    request.env['omniauth.origin'] || stored_location_for(resource) || '/edit'
+    if request.env['omniauth.origin']
+      edit_user_registration_path
+    else
+      dashboard_path
+    end
   end
+  #def after_sign_in_path_for(resource_or_scope)
+  #  if resource.sign_in_count == 1
+  #     new_product_path
+  #  else
+  #     root_path
+  #  end
+#end
+
+
 
   def update_resource(resource, params)
       resource.update_without_password(params)
