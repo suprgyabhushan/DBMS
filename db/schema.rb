@@ -11,14 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< Updated upstream
 ActiveRecord::Schema.define(version: 20161130175638) do
-=======
-
-ActiveRecord::Schema.define(version: 20161130060851) do
-
->>>>>>> Stashed changes
-
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
     t.text     "body",          limit: 65535
@@ -84,7 +77,7 @@ ActiveRecord::Schema.define(version: 20161130060851) do
     t.datetime "updated_at",                            null: false
     t.integer  "status",      limit: 4,     default: 0
     t.string   "role",        limit: 255
-    t.string   "attachment",  limit: 255,               null: false
+    t.string   "attachment",  limit: 255
   end
 
   add_index "ips", ["domain_id"], name: "index_ips_on_domain_id", using: :btree
@@ -105,24 +98,6 @@ ActiveRecord::Schema.define(version: 20161130060851) do
   add_index "licences", ["ip_id"], name: "index_licences_on_ip_id", using: :btree
   add_index "licences", ["licencee_id", "licencee_type", "ip_id"], name: "index_licences_on_licencee_id_and_licencee_type_and_ip_id", unique: true, using: :btree
   add_index "licences", ["licencee_type", "licencee_id"], name: "index_licences_on_licencee_type_and_licencee_id", using: :btree
-<<<<<<< Updated upstream
-=======
-
-  create_table "licences", force: :cascade do |t|
-    t.string   "agreement",      limit: 255
-    t.float    "royalty_to_pay", limit: 24
-    t.datetime "end_time"
-    t.integer  "payment_type",   limit: 4
-    t.integer  "licencee_id",    limit: 4
-    t.string   "licencee_type",  limit: 255
-    t.integer  "ip_id",          limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-  end
-
-  add_index "licences", ["ip_id"], name: "index_licences_on_ip_id", using: :btree
-  add_index "licences", ["licencee_type", "licencee_id"], name: "index_licences_on_licencee_type_and_licencee_id", using: :btree
->>>>>>> Stashed changes
 
   create_table "organisations", force: :cascade do |t|
     t.string   "name",                limit: 255, null: false
@@ -149,14 +124,9 @@ ActiveRecord::Schema.define(version: 20161130060851) do
     t.datetime "updated_at",                   null: false
   end
 
-<<<<<<< Updated upstream
   add_index "stakes", ["ip_id"], name: "index_stakes_on_ip_id", using: :btree
   add_index "stakes", ["stakeholder_id", "stakeholder_type", "ip_id"], name: "index_stakes_on_stakeholder_id_and_stakeholder_type_and_ip_id", unique: true, using: :btree
   add_index "stakes", ["stakeholder_id"], name: "index_stakes_on_stakeholder_id", using: :btree
-=======
-
-  add_index "stakes", ["stakeholder_id", "stakeholder_type", "ip_id"], name: "index_stakes_on_stakeholder_id_and_stakeholder_type_and_ip_id", unique: true, using: :btree
->>>>>>> Stashed changes
 
   create_table "students", force: :cascade do |t|
     t.string   "rollNumber", limit: 255, null: false

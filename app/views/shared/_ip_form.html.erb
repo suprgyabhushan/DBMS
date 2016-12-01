@@ -43,9 +43,7 @@
         </div>
         <div class="form-group label-floating">
           <%= stake.label :percentage, class: "control-label" %>
-
           <%= stake.text_field :percentage, class: 'form-control', min: '19'%>
-
         </div>
       </div>
       <% elsif stake.object.stakeholder == current_user %>
