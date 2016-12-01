@@ -17,11 +17,6 @@
 </p>
 
 <p>
-  <strong>Status:</strong>
-  <%= @ip.status %>
-</p>
-
-<p>
   <strong>Type of IP:</strong>
   <%= @ip.role %>
 </p>
@@ -30,6 +25,14 @@
   <strong>Domain:</strong>
   <%= @ip.domain.name %>
 </p>
+<span><%= link_to "Download IP Asset Document", @ip.attachment_url, target: '_blank' %></span>
+<p class="timestamp">
+Posted <%= time_ago_in_words(@ip.created_at) %> ago.
+</p>
+<% if current_user.faculty and current_user.faculty.ip_committee == true %>
+  <%= render 'shared/ip_committee_ip_view', ip: @ip %>
+<% end %>
+
 <% if current_user.ips.include?(@ip) and (@ip.status == IP_PENDING) %>
 <%= link_to 'Edit', edit_ip_path(@ip) %>
 <% end %> |

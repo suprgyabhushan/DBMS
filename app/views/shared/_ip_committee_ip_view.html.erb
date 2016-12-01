@@ -1,0 +1,35 @@
+<p> Stakeholders:</p>
+<ol>
+  <% ip.stakes.each do |stake| %>
+    <span><%= stake.percentage %></span>
+    <% if stake.stakeholder_type == "User" %>
+      <span><%= stake.stakeholder.email%></span>
+    <% elsif stake.stakeholder_type =="Organisation" %>
+      <span><%= stake.stakeholder.name%></span>
+    <% end %>
+  <% end %>
+</ol>
+<p>IP Committee Members:</p>
+<ol>
+  <% ip.ip_comms.each do |comm| %>
+    <li><%= comm.faculty.user.email %>
+      <% if comm.vote == IP_ACCEPTED %>
+        <span class="label label-success">Approved</span>
+      <% elsif comm.vote == IP_REJECTED %>
+        <span class="label label-danger">Rejected</span>
+      <% else %>
+        <span class="label label-info">Not Voted</span>
+      <% end %>
+    </li>
+  <% end %>
+</ol>
+<% ip.ip_comms.where(:faculty => current_user.faculty).each do |v| %>
+  <% if v.vote == IP_ACCEPTED %>
+    <span><%= link_to "Reject", rejectIP_path(ip)%></span>
+  <% elsif v.vote == IP_REJECTED %>
+    <span><%= link_to "Accept", acceptIP_path(ip)%></span>
+  <% else %>
+    <span><%= link_to "Accept", acceptIP_path(ip)%></span>
+    <span><%= link_to "Reject", rejectIP_path(ip)%></span>
+  <% end %>
+<% end %>

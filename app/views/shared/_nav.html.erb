@@ -14,14 +14,24 @@
       <div class="collapse navbar-collapse" id="navigation-example">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="<%= ips_path %>">IPs<div class="ripple-container"></div></a>
+            <a class="btn btn-raised btn-round btn-info" href="<%= new_ip_path %>">File a new IP<div class="ripple-container"></div></a>
           </li>
           <li>
-            <a href="<%= admin_root_path %>">Admin Dashboard<div class="ripple-container"></div></a>
+            <a href="<%= ips_path %>">IP Assets<div class="ripple-container"></div></a>
           </li>
-          <li>
-            <a href="<%= admin_root_path %>">Admin Dashboard<div class="ripple-container"></div></a>
+          <% if current_user and current_user.faculty and current_user.faculty.ip_committee == true %>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle btn btn-raised btn-success btn-round" data-toggle="dropdown" aria-expanded="false">
+          IP Committee Tasks
+          <b class="caret"></b>
+          <div class="ripple-container"></div></a>
+          	<ul class="dropdown-menu dropdown-menu-right">
+                <li><%= link_to "Review IPs", reviewingIP_path %></li>
+                <li><%= link_to "Accepted IPs", acceptedIP_path %></li>
+                <li><%= link_to "Rejected IPs", reviewingIP_path %></li>
+            </ul>
           </li>
+        <% end %>
         <% if current_user and current_user.admin? %>
           <li>
   				  <a href="<%= admin_root_path %>">Admin Dashboard<div class="ripple-container"></div></a>

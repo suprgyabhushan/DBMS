@@ -80,22 +80,4 @@ class Ip < ActiveRecord::Base
   def set_status
     self.status = IP_REVIEWING if self.status == nil
   end
-
-  def accept
-    flag = 0
-    @ip.ip_committees.each do |comm|
-      if comm.vote != IP_ACCEPTED
-        flag = 1
-      end
-      if comm.vote == IP_REJECTED
-        flag = 2
-      end
-    end
-    if flag == 1
-      @ip.status = IP_ACCEPTED
-    end
-    if flag == 2
-      @ip.status = IP_REJECTED
-    end
-  end
 end

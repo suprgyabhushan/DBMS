@@ -1,10 +1,11 @@
 <div class="row">
   <div class="col-md-8">
-  <h3>Accepted IP's</h3>
+  <%= render 'shared/errors', resource: @ips.first %>
+  <% content_for :title, "Accepted Ips" %> 
   <%= form_tag "", method: "get", id: "filter", class: "filter" do %>
   <%= label_tag "Category" %>
   <%= collection_select :ip, :domain_id, Domain.all, :id, :name, { prompt: 'Select Domain' }, { data: {'live-search': true}, class: 'selectpicker', onchange: "$('#filter').submit();"} %>
-<% end %>
+  <% end %>
   <ol class="ips">
   <% @ips.each do |ip| %>
   <% if ip.status == 2 %>
@@ -27,9 +28,6 @@
         <% end %>
       </ol>
         <span><%= link_to "Download IP Asset Document", ip.attachment_url, target: '_blank' %></span>
-
-
-
     </li>
     <%end %>
   <% end %>

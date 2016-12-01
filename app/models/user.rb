@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:microsoft_office365 , :google, :facebook]
+         :omniauthable, :omniauth_providers => [:microsoft_office365]
 
   has_many :stakes, as: :stakeholder
   has_many :ips, through: :stakes

@@ -20,11 +20,11 @@ class IpsController < ApplicationController
     # if current_user.try?(:faculty)
     @ip = Ip.find(params[:id])
     comm = @ip.ip_comms.where(:faculty_id => current_user.faculty.id).first
-    if (comm.vote == nil or comm.vote == 0 or comm.vote == -1)
-      comm.vote = 1
+    if (comm.vote == nil or comm.vote == IP_PENDING or comm.vote == IP_REVIEWING or comm.vote == IP_REJECTED)
+      comm.vote = IP_ACCEPTED
     end
     comm.save
-    @ip.save
+    @ip.save!
     redirect_to reviewingIP_path
   end
 
@@ -33,8 +33,8 @@ class IpsController < ApplicationController
     # if current_user.try?(:faculty)
     @ip = Ip.find(params[:id])
     comm = @ip.ip_comms.where(:faculty_id => current_user.faculty.id).first
-    if comm.vote == nil or comm.vote == 1
-      comm.vote = -1
+    if comm.vote == nil or comm.vote == IP_ACCEPTED
+      comm.vote = IP_REJECTED
     end
     comm.save
     @ip.save
@@ -69,11 +69,8 @@ class IpsController < ApplicationController
   private
 
     def allow_ip_comm
-      if current_user.attributes.has_key?(:faculty) and current_user.faculty.ip_committee?
-        return true
-      else
+      unless current_user.faculty and current_user.faculty.ip_committee == true
         flash[:notice] = "You don't have enough permissions"
-
         redirect_to root_path
       end
     end

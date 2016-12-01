@@ -55,7 +55,7 @@ show do
     row :description
     table_for ip.stakes do
       column "Stakeholders" do |stake|
-        link_to stake.user.email, [ :admin, stake ]
+        link_to stake.stakeholder.name, [ :admin, stake ]
       end
     end
     table_for ip.stakes do
@@ -70,13 +70,16 @@ end
 
 scope :all, :default => true
 scope :pending_ip_assets do |ips|
-  ips.where('status = ?', 0)
+  ips.where('status = ?', IP_PENDING)
 end
 scope :reviewing_ip_assets do |ips|
-  ips.where('status = ?', 1)
+  ips.where('status = ?', IP_REVIEWING)
 end
 scope :accepted_ip_assets do |ips|
-  ips.where('status = ?', 2)
+  ips.where('status = ?', IP_ACCEPTED)
+end
+scope :rejected_ip_assets do |ips|
+  ips.where('status = ?', IP_REJECTED)
 end
 scope :missing_ip_committee do |ips|
   ips.where('status = ?', IP_COM_MISSING)
