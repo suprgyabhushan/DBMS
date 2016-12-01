@@ -13,8 +13,11 @@
   </div>
   <p class="text-divider"></p>
   <div class="content">
-    <%= devise_error_messages! %>
-
+    <%= render 'shared/errors', resource: resource %>
+    <div class="form-group label-floating">
+      <%= f.label :name, class: "control-label" %>
+      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+    </div>
     <div class="form-group label-floating">
       <%= f.label :email, class: "control-label" %>
       <%= f.email_field :email, autofocus: true, class: "form-control" %>
@@ -55,7 +58,7 @@
     </div>
     <div class="footer text-center">
       <button href="#pablo" type="submission" class="btn btn-simple btn-primary btn-lg">Sign Up</button>
-      <!-- <%= f.submit "Sign up" %> -->
     </div>
   </div>
 <% end %>
+<%= render "users/shared/links" %>

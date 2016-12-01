@@ -1,15 +1,5 @@
 <%= form_for(@faculty) do |f| %>
-  <% if @faculty.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@faculty.errors.count, "error") %> prohibited this faculty from being saved:</h2>
-
-      <ul>
-      <% @faculty.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= render 'shared/errors', resource: resource %>
 
   <div class="field">
     <%= f.label :emp_id %><br>

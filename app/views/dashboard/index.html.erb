@@ -1,11 +1,9 @@
 <% content_for :title, "Dashboard" %>
+<%= render 'shared/errors', resource: current_user %>
 <div class="row">
     <div class="col-md-6 col-sm-offset-3">
       <section class="user_info">
         <%= render 'shared/user_info' %>
-      </section>
-      <section class="ip_form">
-        <%= render 'shared/ip_form' %>
       </section>
     </div>
 </div>

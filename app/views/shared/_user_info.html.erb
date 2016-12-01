@@ -1,7 +1,3 @@
-<h1><%= current_user.role %></h1>
-<h1><%= current_user.email %></h1><br>
-<%= current_user.id %><br>
-
 <a href="/pending">Pending IP's</a><br>
 <a href="/reviewing">Reviewing IP's</a><br>
 <a href="/accept">Accepted IP's</a><br>
@@ -9,5 +5,3 @@
 <% if current_user.faculty and current_user.faculty.ip_committee == 1 %>
 <a href="/reviewingIP">Show All Reviewing IP's</a><br>
 <% end %>
-Total Number of IP's created :
-<span><%= pluralize(current_user.ips.count, "IPs") %></span>

@@ -1,5 +1,6 @@
 class IpsController < ApplicationController
   #before_action :set_ip, only: [:show, :edit, :update, :destroy]
+  before_filter :allow_ip_comm, only: [:accept, :reject]
 
   def index
     if params[:ip]
@@ -11,6 +12,8 @@ class IpsController < ApplicationController
 
   def new
     @ip = Ip.new
+    @ip.stakes.build(stakeholder: Organisation.first, percentage: 20)
+    @ip.stakes.build(stakeholder: current_user)
   end
 
   def accept
@@ -38,23 +41,24 @@ class IpsController < ApplicationController
     redirect_to reviewingIP_path
   end
 
-
-
   def create
-    @ip = current_user.ips.build(ip_params)
-    # puts params[:ip][:percentage]
-    # @ip.stakes << Stake.new({user_id: current_user.id, percentage: params[:ip][:percentage]})
-   if @ip.save
-     flash[:success] = "IP created!"
-     redirect_to '/dashboard'
-   else
-     redirect_to '/dashboard'
-   end
+    @ip = Ip.new(ip_params)
+
+    respond_to do |format|
+      if @ip.save!
+        format.html { redirect_to @ip, notice: 'IP was successfully created.' }
+        format.json { render :show, status: :created, location: @ip }
+      else
+        format.html { render :new }
+        format.json { render json: @ip.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def show
     @ip = Ip.find(params[:id])
   end
+
   def edit
     @ip = Ip.find(params[:id])
   end
@@ -62,10 +66,17 @@ class IpsController < ApplicationController
   def destroy
   end
 
-
-
   private
 
+    def allow_ip_comm
+      if current_user.attributes.has_key?(:faculty) and current_user.faculty.ip_committee?
+        return true
+      else
+        flash[:notice] = "You don't have enough permissions"
+
+        redirect_to root_path
+      end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ip_params

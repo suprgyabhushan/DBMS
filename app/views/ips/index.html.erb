@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
+<%= render 'shared/errors', resource: @ips.first %>
+<% content_for :title, "Listing Ips" %>
 
-<h1>Listing Ips</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Title</th>

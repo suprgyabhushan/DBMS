@@ -19,7 +19,7 @@ index do
     faculty.user.email
   end
   column :ip_committee do |faculty|
-    if faculty.ip_committee == 1
+    if faculty.ip_committee == true
       "Yes"
     else
       "No"
@@ -43,6 +43,9 @@ member_action :enable, :method => :get do
     flash[:notice] = "IP Committee has been enabled!"
     faculty.ip_committee = 1
     faculty.save
+  end
+  Ip.where(status: IP_COM_MISSING).each do |ip|
+    ip.set_ip_committee
   end
   redirect_to :action => :index
 end

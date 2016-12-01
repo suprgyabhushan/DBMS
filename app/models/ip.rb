@@ -41,18 +41,17 @@ class Ip < ActiveRecord::Base
     end
   end
 
-
   def set_ip_committee
     ip_com = Faculty.where(:ip_committee => true)
     ip_com.each do |com|
-      unless self.users.include?(com.user)
-        self.ip_comms << IpComm.create(:faculty_id => com.id)
+      unless self.faculties.include?(com) or self.users.include?(com.user)
+        self.ip_comms.build(:faculty => com)
       end
     end
-    self.update_attributes(:status => IP_COM_MISSING) if self.ip_comms.length < 3
+    self.status = IP_COM_MISSING if self.ip_comms.length < 3
+    self.status = IP_REVIEWING if self.ip_comms.length >= 3
+    self.save
   end
-
-
 
   def set_ip_status
     if self.ip_comms.length > 0 and self.ip_comms.length < 3

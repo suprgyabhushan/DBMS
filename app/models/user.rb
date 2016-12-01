@@ -7,13 +7,13 @@ class User < ActiveRecord::Base
 
   has_many :stakes, as: :stakeholder
   has_many :ips, through: :stakes
-  accepts_nested_attributes_for :stakes
+  accepts_nested_attributes_for :stakes, reject_if: lambda { |order| order[:percentage].blank? && order[:stakeholder].blank?  }
   has_one :student
-  accepts_nested_attributes_for :student
+  accepts_nested_attributes_for :student, reject_if: lambda { |order| order[:rollNumber].blank? }
   has_one :faculty
-  accepts_nested_attributes_for :faculty
+  accepts_nested_attributes_for :faculty, reject_if: lambda { |order| order[:emp_id].blank? }
   has_one :collaborator
-  accepts_nested_attributes_for :collaborator
+  accepts_nested_attributes_for :collaborator, reject_if: lambda { |order| order[:company].blank? }
   has_many :organisations
 
   has_many :licences, as: :licencee

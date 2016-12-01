@@ -13,6 +13,20 @@
 
       <div class="collapse navbar-collapse" id="navigation-example">
         <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="<%= ips_path %>">IPs<div class="ripple-container"></div></a>
+          </li>
+          <li>
+            <a href="<%= admin_root_path %>">Admin Dashboard<div class="ripple-container"></div></a>
+          </li>
+          <li>
+            <a href="<%= admin_root_path %>">Admin Dashboard<div class="ripple-container"></div></a>
+          </li>
+        <% if current_user and current_user.admin? %>
+          <li>
+  				  <a href="<%= admin_root_path %>">Admin Dashboard<div class="ripple-container"></div></a>
+  			  </li>
+        <% end %>
         <% if current_user %>
           <li class="dropdown">
           <a href="#" class="dropdown-toggle btn btn-raised btn-primary btn-round" data-toggle="dropdown" aria-expanded="false">
@@ -21,10 +35,7 @@
           <div class="ripple-container"></div></a>
           	<ul class="dropdown-menu dropdown-menu-right">
               	<li class="dropdown-header">Profile Options</li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
+                <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
                 <li class="divider"></li>
                 <li><%= link_to "Logout", destroy_user_session_path %></li>
             </ul>

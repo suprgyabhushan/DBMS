@@ -1,8 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @ip = Ip.new
-    @ip.stakes.build(stakeholder: Organisation.first, percentage: 20)
-    @ip.stakes.build(stakeholder: current_user)
   end
 
   def accepted

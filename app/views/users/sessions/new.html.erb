@@ -11,8 +11,7 @@
   </div>
   <p class="text-divider"></p>
   <div class="content">
-    <%= notice %>
-    <%= devise_error_messages! %>
+  <%= render 'shared/errors', resource: resource %>
 
     <div class="form-group label-floating">
       <%= f.label :email %><br />
@@ -36,3 +35,4 @@
     </div>
   </div>
 <% end %>
+<%= render "users/shared/links" %>
