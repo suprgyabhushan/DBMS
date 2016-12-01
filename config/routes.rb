@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/pending', to: "dashboard#pending"
   get '/reviewing', to: "dashboard#reviewing"
   get '/accept', to: "dashboard#accepted"
+  get '/reject', to: "dashboard#rejected"
   root :to => redirect("/login")
   get '/dashboard', to: "dashboard#index"
   get '/acceptIP/:id', to: "ips#accept", as: "acceptIP"

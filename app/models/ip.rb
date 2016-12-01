@@ -61,7 +61,11 @@ class Ip < ActiveRecord::Base
     if self.ip_comms.length > 0
       flag = 0
       self.ip_comms.each do |com|
-        flag = flag + 1 if com.vote == IP_ACCEPTED
+        if com.vote == IP_ACCEPTED
+          flag = flag + 1
+        elsif com.vote == IP_REJECTED
+          self.status = IP_REJECTED
+        end
         # flag = 2 if com.vote == nil
         # flag = 2 if com.vote == IP_REJECTED
     end
