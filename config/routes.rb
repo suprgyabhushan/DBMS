@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/licences/new/:id', to: "licences#new", as: "new_licence_ip"
   resources :licences
   resources :organisations
   resources :ips
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
   get '/pending', to: "dashboard#pending"
   get '/reviewing', to: "dashboard#reviewing"
   get '/accept', to: "dashboard#accepted"

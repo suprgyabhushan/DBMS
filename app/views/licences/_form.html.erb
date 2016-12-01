@@ -13,8 +13,8 @@
   <% end %>
 
   <div class="form-group label-floating">
-    <%= f.label :agreement, class: "control-label" %>
-    <%= f.file_field :agreement, class: 'form-control'%>
+    <%= f.file_field :agreement%>
+    <%= f.label :agreement %>
   </div>
   <div class="form-group label-floating">
     <%= f.label :royalty_to_pay, class: "control-label" %>
@@ -32,7 +32,7 @@
     <%= f.grouped_collection_select(:licencee_id, [["Users", User.all], ["Organisations", Organisation.all]], :last, :first, :id, :name, { prompt: 'Select Licencee' }, {  data: {'live-search': true}, class: 'selectpicker' } ) %>
   </div>
   <div class="form-group">
-    <%= f.collection_select :ip_id, Ip.all || [], :id, :title, { prompt: 'Select IP to license' }, { data: {'live-search': true}, class: 'selectpicker'} %>
+    <%= f.collection_select :ip_id, @ips || [], :id, :title, { prompt: 'Select IP to license' }, { data: {'live-search': true}, class: 'selectpicker'} %>
   </div>
   <%= f.submit "Submit", class: "btn btn-primary", style: 'float: right' %>
 

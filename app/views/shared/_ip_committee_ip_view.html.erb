@@ -24,12 +24,12 @@
   <% end %>
 </ol>
 <% ip.ip_comms.where(:faculty => current_user.faculty).each do |v| %>
-  <% if v.vote == IP_ACCEPTED %>
-    <span><%= link_to "Reject", rejectIP_path(ip)%></span>
-  <% elsif v.vote == IP_REJECTED %>
-    <span><%= link_to "Accept", acceptIP_path(ip)%></span>
-  <% else %>
-    <span><%= link_to "Accept", acceptIP_path(ip)%></span>
-    <span><%= link_to "Reject", rejectIP_path(ip)%></span>
+  <% if ip.status != IP_ACCEPTED %>
+    <% if v.vote == IP_ACCEPTED %>
+      <span><%= link_to "Reject", rejectIP_path(ip)%></span>
+    <% elsif v.vote != IP_REJECTED %>
+      <span><%= link_to "Accept", acceptIP_path(ip)%></span>
+      <span><%= link_to "Reject", rejectIP_path(ip)%></span>
+    <% end %>
   <% end %>
 <% end %>

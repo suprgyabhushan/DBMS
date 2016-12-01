@@ -32,7 +32,9 @@ Posted <%= time_ago_in_words(@ip.created_at) %> ago.
 <% if current_user.faculty and current_user.faculty.ip_committee == true %>
   <%= render 'shared/ip_committee_ip_view', ip: @ip %>
 <% end %>
-
+<% if current_user.ips.include?(@ip) or current_user.admin == true %>
+  <%= link_to "Licence this IP Asset", new_licence_ip_path(@ip) %>
+<% end %>
 <% if current_user.ips.include?(@ip) and (@ip.status == IP_PENDING) %>
 <%= link_to 'Edit', edit_ip_path(@ip) %>
 <% end %> |
