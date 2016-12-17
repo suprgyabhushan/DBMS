@@ -13,16 +13,28 @@ ActiveAdmin.register IpComm do
 #   permitted
 # end
 
+controller do
+    def scoped_collection
+      super.includes :ip
+    end
+  end
+
+
 index do
   selectable_column
   column :vote
   column :ip_id
-  column :faculty_id
-  column :comment
-  column :missing
+  column "Faculty" do |f|
+   usr = Faculty.find(f.faculty_id).user.email
+   link_to usr, admin_faculty_path(f.faculty_id)
+  end
   actions
 end
 scope :all, :default => true
+scope :missing do |scope|
+  scope.where ips: {status: 3}
+end
+
 
 
 permit_params :vote, :faculty, :ip, :comment

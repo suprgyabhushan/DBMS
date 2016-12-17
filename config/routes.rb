@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :collaborators
   resources :faculties
   resources :students
+  resources :transactions
+  resources :accounts
   devise_for :users,  controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',

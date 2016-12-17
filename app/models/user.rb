@@ -15,8 +15,9 @@ class User < ActiveRecord::Base
   has_one :collaborator
   accepts_nested_attributes_for :collaborator, reject_if: lambda { |order| order[:company].blank? }
   has_many :organisations
-
   has_many :licences, as: :licencee
+  has_one :account
+  before_create :build_default_account
 
   def active_for_authentication?
     super && status?
@@ -29,6 +30,12 @@ class User < ActiveRecord::Base
       super # Use whatever other message
     end
   end
+
+  def build_default_account
+    build_account
+    true
+  end
+    
   def self.types
     %w(Student Faculty Collaborator)
   end

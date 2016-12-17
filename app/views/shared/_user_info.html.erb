@@ -2,7 +2,8 @@
 <a href="/reviewing">My Reviewing IP's</a><br>
 <a href="/accept">My Accepted IP's</a><br>
 <a href="/reject">My Rejected IP's</a><br>
-
+<a href="<%= new_transaction_path %>">New Transaction</a>
 <% if current_user.faculty and current_user.faculty.ip_committee == 1 %>
 <a href="/reviewingIP">Show All Reviewing IP's</a><br>
+
 <% end %>
