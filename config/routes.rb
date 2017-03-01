@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :licences
   resources :organisations
   resources :ips
@@ -17,15 +18,6 @@ Rails.application.routes.draw do
       :sign_up => 'register',
       :sign_out => 'logout'
     }
-  ActiveAdmin.routes(self)
-  scope :admin do
-    resources :users do
-      member do
-          get :status
-          get :clear
-      end
-    end
-  end
   get '/pending', to: "dashboard#pending"
   get '/reviewing', to: "dashboard#reviewing"
   get '/accept', to: "dashboard#accepted"
