@@ -6,26 +6,26 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # def twitter
   # end
   def facebook
-     generic_callback( 'facebook' )
-   end
+    generic_callback( 'facebook' )
+  end
 
-   def google
-     generic_callback( 'google' )
-   end
+  def google
+    generic_callback( 'google' )
+  end
 
-   def microsoft_office365
-     generic_callback( 'microsoft_office365' )
-   end
+  def microsoft_office365
+    generic_callback( 'microsoft_office365' )
+  end
 
-   def generic_callback( provider )
+  def generic_callback( provider )
     @user = User.from_omniauth(request.env["omniauth.auth"])
-     if @user.persisted?
-       sign_in_and_redirect @user, event: :authentication
-       set_flash_message(:notice, :success, kind: provider.capitalize) if is_navigational_format?
-     else
-       session["devise.#{provider}_data"] = env["omniauth.auth"]
-       redirect_to new_user_registration_url
-     end
+    if @user.persisted?
+      sign_in_and_redirect @user, event: :authentication
+      set_flash_message(:notice, :success, kind: provider.capitalize) if is_navigational_format?
+    else
+      session["devise.#{provider}_data"] = env["omniauth.auth"]
+      redirect_to new_user_registration_url
+    end
   end
   # More info at:
   # https://github.com/plataformatec/devise#omniauth

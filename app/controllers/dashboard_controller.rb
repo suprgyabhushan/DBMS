@@ -20,9 +20,9 @@ class DashboardController < ApplicationController
 
   def reviewing
     if params[:ip]
-      @ips = current_user.ips.where(:status => IP_REVIEWING).filter(params[:ip].slice(:domain_id))
+      @ips = current_user.ips.where(:status => [IP_COM_MISSING,IP_REVIEWING]).filter(params[:ip].slice(:domain_id))
     else
-      @ips = current_user.ips.where(:status => IP_REVIEWING)
+      @ips = current_user.ips.where(:status => [IP_COM_MISSING,IP_REVIEWING])
     end
   end
 

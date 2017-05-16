@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
 
   has_many :stakes, as: :stakeholder
   has_many :ips, through: :stakes
-  accepts_nested_attributes_for :stakes, reject_if: lambda { |order| order[:percentage].blank? && order[:stakeholder].blank?  }
   has_one :student
   accepts_nested_attributes_for :student, reject_if: lambda { |order| order[:rollNumber].blank? }
   has_one :faculty

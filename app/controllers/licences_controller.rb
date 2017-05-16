@@ -1,5 +1,13 @@
 class LicencesController < InheritedResources::Base
 
+  def index
+    if current_user.admin == true
+      @licences = Licence.all
+    else
+      @licences = current_user.licences | []
+    end
+  end
+
   def new
     if current_user.admin == true
       @ips = Ip.where(:status => IP_ACCEPTED)
