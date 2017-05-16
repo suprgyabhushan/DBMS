@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130175638) do
+ActiveRecord::Schema.define(version: 20170226114542) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "user_id",    limit: 4
+    t.boolean  "meta"
+    t.string   "meta_name",  limit: 255
+    t.integer  "balance",    limit: 4,   default: 0
+  end
+
+  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
     t.text     "body",          limit: 65535
@@ -45,11 +57,11 @@ ActiveRecord::Schema.define(version: 20161130175638) do
   add_index "domains", ["name"], name: "index_domains_on_name", unique: true, using: :btree
 
   create_table "faculties", force: :cascade do |t|
-    t.string   "emp_id",       limit: 255, null: false
-    t.boolean  "ip_committee"
+    t.string   "emp_id",       limit: 255,             null: false
     t.integer  "user_id",      limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "ip_committee", limit: 4,   default: 0
   end
 
   add_index "faculties", ["emp_id"], name: "index_faculties_on_emp_id", unique: true, using: :btree
@@ -64,7 +76,7 @@ ActiveRecord::Schema.define(version: 20161130175638) do
     t.datetime "updated_at",               null: false
   end
 
-  add_index "ip_comms", ["faculty_id", "ip_id"], name: "index_ip_comms_on_faculty_id_and_ip_id", unique: true, using: :btree
+  add_index "ip_comms", ["faculty_id", "ip_id"], name: "faculty_id", unique: true, using: :btree
   add_index "ip_comms", ["faculty_id"], name: "index_ip_comms_on_faculty_id", using: :btree
   add_index "ip_comms", ["ip_id"], name: "index_ip_comms_on_ip_id", using: :btree
 
@@ -77,11 +89,10 @@ ActiveRecord::Schema.define(version: 20161130175638) do
     t.datetime "updated_at",                            null: false
     t.integer  "status",      limit: 4,     default: 0
     t.string   "role",        limit: 255
-    t.string   "attachment",  limit: 255
+    t.string   "attachment",  limit: 255,               null: false
   end
 
   add_index "ips", ["domain_id"], name: "index_ips_on_domain_id", using: :btree
-  add_index "ips", ["title", "attachment"], name: "index_ips_on_title_and_attachment", unique: true, using: :btree
 
   create_table "licences", force: :cascade do |t|
     t.string   "agreement",      limit: 255,             null: false
@@ -112,20 +123,15 @@ ActiveRecord::Schema.define(version: 20161130175638) do
   add_index "organisations", ["user_id"], name: "index_organisations_on_user_id", using: :btree
 
   create_table "stakes", force: :cascade do |t|
-
-
-    t.string   "stakeholder_type", limit: 255
+    t.string   "stakeholder_type", limit: 255, null: false
     t.float    "percentage",       limit: 24
-    t.integer  "stakeholder_id",   limit: 4
-    t.integer  "ip_id",            limit: 4
-
-
+    t.integer  "stakeholder_id",   limit: 4,   null: false
+    t.integer  "ip_id",            limit: 4,   null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end
 
   add_index "stakes", ["ip_id"], name: "index_stakes_on_ip_id", using: :btree
-  add_index "stakes", ["stakeholder_id", "stakeholder_type", "ip_id"], name: "index_stakes_on_stakeholder_id_and_stakeholder_type_and_ip_id", unique: true, using: :btree
   add_index "stakes", ["stakeholder_id"], name: "index_stakes_on_stakeholder_id", using: :btree
 
   create_table "students", force: :cascade do |t|
@@ -135,8 +141,19 @@ ActiveRecord::Schema.define(version: 20161130175638) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "students", ["rollNumber"], name: "index_students_on_rollNumber", unique: true, using: :btree
   add_index "students", ["user_id"], name: "index_students_on_user_id", using: :btree
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "from_id",         limit: 4,             null: false
+    t.integer  "to_id",           limit: 4,             null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "type_transfer"
+    t.boolean  "type_deposit"
+    t.boolean  "type_fee"
+    t.boolean  "type_withdrawal"
+    t.integer  "amount",          limit: 4, default: 0
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -149,13 +166,6 @@ ActiveRecord::Schema.define(version: 20161130175638) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
-    t.string   "confirmation_token",     limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
-    t.integer  "failed_attempts",        limit: 4,   default: 0,  null: false
-    t.string   "unlock_token",           limit: 255
-    t.datetime "locked_at"
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "provider",               limit: 255
@@ -166,13 +176,13 @@ ActiveRecord::Schema.define(version: 20161130175638) do
     t.string   "name",                   limit: 255
     t.integer  "status",                 limit: 4,   default: 0
     t.string   "role",                   limit: 255
+    t.integer  "charge_fee",             limit: 4,   default: 0
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
+  add_foreign_key "accounts", "users"
   add_foreign_key "collaborators", "users"
   add_foreign_key "faculties", "users"
   add_foreign_key "ip_comms", "faculties"

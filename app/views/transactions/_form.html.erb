@@ -1,0 +1,42 @@
+<%= form_for @transaction do |f| %>
+<% if @transaction.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being processed:</h2>
+
+    <ul>
+    <% @transaction.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+    <div class="form-group">
+      <%= f.label :amount, class: "control-label" %>
+      <%= f.text_field :amount, placeholder: "Amount...", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :type_deposit, class: "control-label" %>
+      <%= f.text_field :type_deposit, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :type_withdrawal, class: "control-label" %>
+      <%= f.text_field :type_withdrawal, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :type_transfer, class: "control-label" %>
+      <%= f.text_field :type_transfer, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :type_fee, class: "control-label" %>
+      <%= f.text_field :type_fee, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :from_id %>
+      <%= f.number_field :from_id %>
+    </div>
+    <div class="form-group">
+      <%= f.label :to_id %>
+      <%= f.number_field :to_id %>
+    </div>
+  <%= f.submit "Submit", class: "btn btn-primary", style: 'float: right' %>
+<% end %>

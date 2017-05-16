@@ -5,6 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-admin = User.create(email: 'admin@iiitb.org', name: 'Admin', admin: 1, status: 1, password: 'thanks123')
-iiitb = Organisation.create(name: "IIIT Bangalore", user: admin)
+Account.create(meta: true, meta_name: 'withdrawal')
+Account.create(meta: true, meta_name: 'deposit')
+Account.create(meta: true, meta_name: 'revenue')

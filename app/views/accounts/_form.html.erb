@@ -1,0 +1,19 @@
+<%= form_for(@account) do |f| %>
+<%= render 'shared/errors', resource: resource %>
+
+  <div class="field">
+    <%= f.label :emp_id %><br>
+    <%= f.text_field :emp_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ip_committee %><br>
+    <%= f.text_field :ip_committee %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
