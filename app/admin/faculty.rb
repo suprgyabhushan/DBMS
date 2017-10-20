@@ -19,7 +19,7 @@ index do
     faculty.user.email
   end
   column :ip_committee do |faculty|
-    if faculty.ip_committee == true
+    if faculty.ip_committee == 1
       "Yes"
     else
       "No"
@@ -35,12 +35,12 @@ end
 
 member_action :enable, :method => :get do
   faculty = Faculty.find(params[:id])
-  ip_comm = Faculty.count(:ip_committee => 1)
+  ip_comm = Faculty.where(:ip_committee => 1).count()
 
   if(ip_comm > 3)
     flash[:notice] = "IP Committee is full!!"
   else
-    flash[:notice] = "IP Committee has been enabled!"
+    flash[:notice] = "IP Committee has been enabled for user " + faculty.user.name
     faculty.ip_committee = 1
     faculty.save
   end
@@ -64,6 +64,6 @@ scope :all, :default => true
 scope :ip_committee_members do |faculty|
   faculty.where(:ip_committee => 1)
 end
-permit_params :ip_committee, :user_id
+permit_params :ip_committee, :user_id, :emp_id
 
 end
